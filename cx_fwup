@@ -1,11 +1,18 @@
 #!/bin/env python3
 
-import os, sys
+import common_bf
+import sys
+
 
 def main():
-    os.system("chmod +x mlxup")
-    r = os.system("/mlxup -y")
-    sys.exit(r)
+    ret = common_bf.run("chmod +x mlxup")
+    if ret.returncode != 0:
+        print(f"chmod mlxup failed: {ret.err}")
+        sys.exit(ret.returncode)
+    ret = common_bf.run("/mlxup -y")
+    if ret.returncode != 0:
+        print(f"/mlxup -y failed: {ret.err}")
+        sys.exit(ret.returncode)
 
 
 if __name__ == "__main__":
